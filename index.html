@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>时钟clock</title>
+    <script src="script/wakelock.js"></script>
+    <link rel="shortcut icon" href="nixie.ico">
+    <style>
+        #content {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            height: 100vh;
+            margin: 0 auto;
+            padding: 0%;
+            background-image: linear-gradient(rgba(0, 0, 139, 1), rgba(70, 130, 180, 0.95), rgba(135, 206, 235, 0.9), rgba(240, 248, 255, 0.85)), url('img/display_j.png');
+            background-size: cover;
+            background-position: center;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        #content::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: rgba(0, 0, 0, 0.1);
+            /* 半透明的颜色层 */
+            backdrop-filter: blur(0px);
+            /* 模糊滤镜 */
+        }
+
+        .no-blur::after {
+            backdrop-filter: none;
+        }
+    </style>
+
+    <style>
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        @font-face {
+            font-family: 'Nixiebold-bold';
+            src: url('fonts/Nixiebold-bold.woff2') format('woff2'),
+                url('fonts/Nixiebold-bold.woff') format('woff'),
+                url('fonts/Nixiebold-bold.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Nixiebold-mini';
+            src: url('fonts/Nixiebold-mini.woff2') format('woff2'),
+                url('fonts/Nixiebold-mini.woff') format('woff'),
+                url('fonts/Nixiebold-mini.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Nixiebold-slim';
+            src: url('fonts/Nixiebold-slim.woff2') format('woff2'),
+                url('fonts/Nixiebold-slim.woff') format('woff'),
+                url('fonts/Nixiebold-slim.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            height: 100vh;
+            margin: 0 auto;
+            padding: 0%;
+            background-color: transparent;
+        }
+
+        .iframe-container {
+            display: flex;
+            justify-content: flex-start;
+            width: 200%;
+        }
+
+        .iframe-container iframe {
+            width: 100%;
+            height: 100vh;
+            transform: scale(1);
+            border: 0px solid black;
+            margin: 0px;
+            overflow: hidden;
+            transition: opacity 11s;
+        }
+
+        .iframe-container iframe:nth-child(1) {
+            animation: move 45s infinite;
+        }
+
+        .iframe-container iframe:nth-child(2) {
+            animation: move 42.5s infinite;
+        }
+
+        .iframe-container iframe:nth-child(3) {
+            animation: move 39s infinite;
+        }
+
+        .iframe-container iframe:nth-child(4) {
+            animation: move 43.5s infinite;
+        }
+
+        @keyframes move {
+            0% {
+                transform: translateY(0) translateX(0);
+            }
+
+            50% {
+                transform: translateY(166px) translateX(64px);
+            }
+
+            100% {
+                transform: translateY(0) translateX(0);
+            }
+        }
+
+
+        .secondonenumber {
+            position: absolute;
+            display: flex;
+            flex-direction: row;
+            margin: 0 auto;
+            padding: 0%;
+            top: 63%;
+            right: 1%;
+            transform: scale(1, 1.15);
+            transform-origin: 50% 50%;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Nixiebold-bold', Arial, sans-serif;
+            font-size: 7vh;
+            color: #ff7300;
+            mix-blend-mode: screen;
+            opacity: 0.5;
+            z-index: 99;
+        }
+
+        #aboutme,
+        #fullscreenbutt {
+            position: absolute;
+            top: 85.5vh;
+            padding: 1vh;
+            font-size: 1.5vh;
+            background-color: transparent;
+            color: #000000;
+            cursor: pointer;
+            z-index: 99;
+        }
+
+        #fullscreenbutt {
+            right: 1vw;
+        }
+
+        #aboutme {
+            left: 1vw;
+        }
+
+        .currenttime {
+            position: absolute;
+            top: 40vh;
+            width: 80vh;
+            /* 添加宽度以便可以居中对齐 */
+            height: 50vh;
+            background-color: transparent;
+            z-index: 0;
+            display: flex;
+            justify-content: center;
+            /* 水平居中对齐 */
+            align-items: center;
+            /* 垂直居中对齐 */
+            letter-spacing: 0.5em;
+            line-height: 1.5em;
+            font-size: 9vh;
+            z-index: 99;
+            opacity: 0.33;
+        }
+    </style>
+
+
+
+</head>
+
+<body>
+    <div class="currenttime ">
+        <iframe src="szclockcolor.html"
+            style="position:absolute; top:25vh; width:200%; height:100%; background-color:transparent;border:none;"
+            allowtransparency="true"></iframe>
+    </div>
+    <div id="content">
+        <div class="iframe-container">
+            <iframe id="sz-hours-tens" src="html/0.html"></iframe>
+            <iframe id="sz-hours-ones" src="html/0.html"></iframe>
+            <iframe id="sz-minutes-tens" src="html/0.html"></iframe>
+            <iframe id="sz-minutes-ones" src="html/0.html"></iframe>
+        </div>
+        <div class="secondonenumber">
+            <div id="sz-seconds-tens"></div>
+            <div id="sz-seconds-ones"></div>
+        </div>
+    </div>
+    <button id="fullscreenbutt" onclick="toggleFullScreen()"><span style="color: #fb7c00">fullsreen</span></button>
+    <a href="https://aj300542.github.io/">
+        <button id="aboutme"><span style="color:#fb7c00">aj300</span></button>
+    </a>
+    <script>
+        function zoomPage() {
+            // 在页面加载时放大页面
+            document.getElementsByTagName('countdown-Wrapper')[0].style.transform = 'scale(1.25)';
+        }
+
+        function toggleFullScreen() {
+            var elem = document.getElementById("content");
+
+            if (!document.fullscreenElement) {
+                if (elem.requestFullscreen) {
+                    elem.requestFullscreen();
+                } else if (elem.mozRequestFullScreen) { /* Firefox */
+                    elem.mozRequestFullScreen();
+                } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+                    elem.webkitRequestFullscreen();
+                } else if (elem.msRequestFullscreen) { /* IE/Edge */
+                    elem.msRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.mozCancelFullScreen) { /* Firefox */
+                    document.mozCancelFullScreen();
+                } else if (document.webkitExitFullscreen) { /* Chrome, Safari and Opera */
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) { /* IE/Edge */
+                    document.msExitFullscreen();
+                }
+            }
+        }
+    </script>
+    <script>
+        setInterval(function () {
+            var date = new Date();
+            var seconds = date.getSeconds();
+            var opacity = 1;
+
+            if (seconds >= 50 && seconds <= 60) {
+                opacity = 0.05;
+            }
+
+            var iframes = document.querySelectorAll('.iframe-container iframe');
+            for (var i = 0; i < iframes.length; i++) {
+                iframes[i].style.opacity = opacity;
+            }
+        }, 1000);
+    </script>
+    <script>
+        function szDisplayNumber(id, number) {
+            if (id.startsWith('hours') || id.startsWith('minutes')) {
+                document.getElementById('sz-' + id).src = 'html/' + number + '.html';
+            } else {
+                document.getElementById('sz-' + id).innerText = number;
+            }
+        }
+        function szDisplayTimeHoursAndMinutes() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            szDisplayNumber('hours-tens', Math.floor(hours / 10));
+            szDisplayNumber('hours-ones', hours % 10);
+            szDisplayNumber('minutes-tens', Math.floor(minutes / 10));
+            szDisplayNumber('minutes-ones', minutes % 10);
+
+            // 计算到下一分钟开始的时间差
+            const seconds = now.getSeconds();
+            const millisecondsToNextMinute = (60 - seconds) * 1000;
+            setTimeout(szDisplayTimeHoursAndMinutes, millisecondsToNextMinute);
+        }
+
+        function szDisplayTimeSeconds() {
+            const now = new Date();
+            let seconds = now.getSeconds();
+
+            szDisplayNumber('seconds-tens', Math.floor(seconds / 10));
+            szDisplayNumber('seconds-ones', seconds % 10);
+
+            const milliseconds = now.getMilliseconds();
+            setTimeout(szDisplayTimeSeconds, 1000 - milliseconds);
+        }
+        window.onload = function () {
+            szDisplayTimeHoursAndMinutes();
+            szDisplayTimeSeconds();
+        };
+
+    </script>
+
+</body>
+
+</html>
