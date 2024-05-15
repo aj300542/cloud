@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Color Clock</title>
+    <link rel="shortcut icon" href="nixie.ico">
+    <style>
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Fonts */
+        @font-face {
+            font-family: 'Nixiebold-boldbig';
+            src: url('fonts/Nixiebold-boldbig.woff2') format('woff2'),
+                url('fonts/Nixiebold-boldbig.woff') format('woff'),
+                url('fonts/Nixiebold-boldbig.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Nixiebold-mini';
+            src: url('fonts/Nixiebold-mini.woff2') format('woff2'),
+                url('fonts/Nixiebold-mini.woff') format('woff'),
+                url('fonts/Nixiebold-mini.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            text-align: center;
+            background: transparent;
+        }
+
+
+        .columna,
+        .columnb {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            letter-spacing: 0.5em;
+            line-height: 0.25em;
+            margin: auto;
+        }
+
+
+        .display,
+        .blacktext {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            letter-spacing: 0.5em;
+            line-height: 0.25em;
+            margin-bottom: -3vw;
+        }
+
+
+        .display {
+            z-index: 99;
+            background: transparent;
+            border-radius: 20px;
+            height: 23vh;
+        }
+
+        .blacktext {
+            z-index: 100;
+            color: #ffffff;
+            font-family: 'Nixiebold-mini', Arial, sans-serif;
+
+        }
+
+
+        #sz-year,
+        #sz-month,
+        #sz-day,
+        #sz-hours-tens,
+        #sz-hours-ones,
+        #sz-minutes-tens,
+        #sz-minutes-ones,
+        #sz-seconds-tens,
+        #sz-seconds-ones,
+        #sz-day span {
+            line-height: 23vh;
+            font-size: 12vh;
+            font-family: 'Nixiebold-boldbig', Arial, sans-serif;
+            background: linear-gradient(135deg,  #800080,#FF0000, #008000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: animate 7.5s linear infinite;
+        }
+
+
+        #sc-year,
+        #sc-month,
+        #sc-day,
+        #sc-hours-tens,
+        #sc-hours-ones,
+        #sc-minutes-tens,
+        #sc-minutes-ones,
+        #sc-seconds-tens,
+        #sc-seconds-ones, 
+        #sc-day span {
+            line-height: 23vh;
+            font-size: 12vh;
+        }
+
+        @keyframes animate {
+            100% {
+                filter: hue-rotate(360deg);
+            }
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div class="columna">
+        <div class="display">
+            <div id="sz-year"></div><span id="sz-year">-</span>
+            <div id="sz-month"></div>
+            <div id="sz-day"></div>
+        </div>
+        <div class="display">
+            <div id="sz-hours-tens"></div>
+            <div id="sz-hours-ones"></div><span id="sz-year">:</span>
+            <div id="sz-minutes-tens"></div>
+            <div id="sz-minutes-ones"></div><span id="sz-year">:</span>
+            <div id="sz-seconds-tens"></div>
+            <div id="sz-seconds-ones"></div>
+        </div>
+    </div>
+    <div class="columnb">
+        <div class="blacktext">
+            <div id="sc-year"></div><span id="sc-year">-</span>
+            <div id="sc-month"></div>
+            <div id="sc-day"></div>
+        </div>
+        <div class="blacktext">
+            <div id="sc-hours-tens"></div>
+            <div id="sc-hours-ones"></div><span id="sc-year">:</span>
+            <div id="sc-minutes-tens"></div>
+            <div id="sc-minutes-ones"></div><span id="sc-year">:</span>
+            <div id="sc-seconds-tens"></div>
+            <div id="sc-seconds-ones"></div>
+        </div>
+    </div>
+    <script src="js/sz-timeDisplay.js"></script>
+
+</html>
