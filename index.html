@@ -6,8 +6,39 @@
     <script src="script/wakelock.js"></script>
     <link rel="shortcut icon" href="nixie.ico">
     <style>
+        #div1 {
+            position: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            top: 50%;
+            left: 50%;
+            width: 20vh;
+            height: 10vh;
+            padding: 5vh;
+            border: 0px solid #aaaaaa;
+            z-index: 999999;
+            transform: translate(-260%, 20%);
+            z-index: 49;
+        }
+
+        #tip {
+            position: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            top: 50%;
+            left: 50%;
+            width: 20vh;
+            height: 10vh;
+            padding: 5vh;
+            border: 1px solid #740097;
+            z-index: 49;
+            transform: translate(-260%, 20%);
+        }
+
+
         #content {
-            position: absolute;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -20,7 +51,7 @@
             background-position: center;
             width: 100%;
             height: 100%;
-            z-index: 0;
+            z-index: 1;
         }
 
         #content::after {
@@ -40,7 +71,18 @@
             backdrop-filter: none;
         }
     </style>
-
+    <script>
+        var images = ['img/display_j.png','img/display_m.png','img/display_b.jpg'];
+        var index = 0;
+        var shouldUpdateBackground = true; // 新增的全局变量
+        setInterval(function () {
+            if (shouldUpdateBackground) { // 检查是否应该更新背景
+                var bgImage = 'linear-gradient(rgba(0, 0, 139, 1), rgba(70, 130, 180, 0.95), rgba(135, 206, 235, 0.9), rgba(240, 248, 255, 0.85)), url(' + images[index] + ')';
+                document.getElementById('content').style.backgroundImage = bgImage;
+                index = (index + 1) % images.length;
+            }
+        }, 30000); 
+    </script>
     <style>
         ::-webkit-scrollbar {
             display: none;
@@ -74,7 +116,6 @@
         }
 
         body {
-            position: absolute;
             display: flex;
             justify-content: center;
             align-items: center;
