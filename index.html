@@ -130,6 +130,7 @@
             display: flex;
             justify-content: flex-start;
             width: 200%;
+            transform: scale(0.88,1);
         }
 
         .iframe-container iframe {
@@ -139,7 +140,7 @@
             border: 0px solid black;
             margin: 0px;
             overflow: hidden;
-            transition: opacity 11s;
+            transition: opacity 6s;
         }
 
         .iframe-container iframe:nth-child(1) {
@@ -298,7 +299,7 @@
             var seconds = date.getSeconds();
             var opacity = 1;
 
-            if (seconds >= 50 && seconds <= 60) {
+            if (seconds >= 54 && seconds <= 60) {
                 opacity = 0.05;
             }
 
